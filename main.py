@@ -194,10 +194,6 @@ def check_rate_limit(ip: str) -> None:
         )
     window.append(now)
 
-        return {"status": "success", "result": result}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
     now = time.monotonic()
     window = _hits[ip]
     while window and now - window[0] > 60:
