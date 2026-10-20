@@ -182,6 +182,7 @@ def client_ip(request: Request) -> str:
 
 
     def check_rate_limit(ip: str) -> None:
+        def check_rate_limit(ip: str) -> None:
     now = time.monotonic()
     window = _hits[ip]
     while window and now - window[0] > 60:
@@ -194,15 +195,6 @@ def client_ip(request: Request) -> str:
             headers={"Retry-After": str(retry_after)},
         )
     window.append(now)
-
-    
-    try:
-        # OpenAI orqali generatsiya qilish jarayoni
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a professional social media content creator and expert in viral TikTok & Reels hooks."},
-                {"role": "user", "content": f"Generate 3 viral hooks and a 15-second script for the topic: {data.topic} with a {data.tone} tone."}
             ]
         )
         result = response.choices[0].message.content
