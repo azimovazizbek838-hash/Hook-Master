@@ -180,7 +180,6 @@ def client_ip(request: Request) -> str:
         return forwarded.split(",")[0].strip()
     return request.client.host if request.client else "unknown"
 
-
 def check_rate_limit(ip: str) -> None:
     now = time.monotonic()
     window = _hits[ip]
@@ -188,11 +187,7 @@ def check_rate_limit(ip: str) -> None:
         window.popleft()
     if len(window) >= RATE_LIMIT_PER_MIN:
         retry_after = max(1, int(60 - (now - window[0])))
-        raise HTTPException(
-            status_code=429,
-            detail="Too many requests. Please slow down.",
-            headers={"Retry-After": str(retry_after)},
-        )
+        raise HTTPException(status_code=429, detail="Too many requests. Please slow down.", headers={"Retry-After": str(retry_after)})
     window.append(now)
             ]
         )
