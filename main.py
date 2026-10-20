@@ -182,26 +182,6 @@ def client_ip(request: Request) -> str:
 
 
 def check_rate_limit(ip: str) -> None:
-    from fastapi import Request, HTTPException
-
-# Foydalanuvchilarning IP manzillari va ularning urinishlar sonini saqlab turuvchi vaqtinchalik baza (xotira)
-user_attempts = {}
-
-@app.post("/api/generate")
-def generate_hooks(data: HookRequest, request: Request):
-    # Foydalanuvchining IP manzilini aniqlaymiz
-    client_ip = request.client.host
-    
-    # Agar bu IP oldin ishlatgan bo'lsa, sonini tekshiramiz
-    current_count = user_attempts.get(client_ip, 0)
-    
-    # 1 ta bepul imkoniyat beramiz (agar 1 tadan oshsa, to'xtatamiz)
-    if current_count >= 1:
-        raise HTTPException(
-            status_code=403, 
-            detail="Free limit reached. Please upgrade to Pro to continue."
-        )
-    
     try:
         # OpenAI orqali generatsiya qilish jarayoni
         response = client.chat.completions.create(
