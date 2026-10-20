@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HookMaster AI – Generate Viral Hooks & Scripts in 5 Seconds</title>
+  <meta name="description" content="AI-generated TikTok & Reels hooks and 15-second UGC scripts that grab attention instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink: { 950: '#0b0b10', 900: '#101017', 800: '#16161f', 700: '#1e1e2a', 600: '#2a2a3a' },
+            neon: { purple: '#a855f7', violet: '#8b5cf6', cyan: '#22d3ee', pink: '#f472b6' }
+          },
+          boxShadow: {
+            glow: '0 0 40px -8px rgba(168,85,247,.55)',
+            glowCyan: '0 0 40px -8px rgba(34,211,238,.45)'
+          },
+          keyframes: {
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            shimmer: { '100%': { transform: 'translateX(100%)' } },
+            pop: { '0%': { opacity: 0, transform: 'scale(.95) translateY(10px)' }, '100%': { opacity: 1, transform: 'scale(1) translateY(0)' } },
+            fadeUp: { '0%': { opacity: 0, transform: 'translateY(14px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } }
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            pop: 'pop .25s ease-out both',
+            fadeUp: 'fadeUp .5s ease-out both'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background: #0b0b10; }
+    .grad-text { background: linear-gradient(90deg, #a855f7, #22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .grad-btn { background: linear-gradient(90deg, #8b5cf6, #a855f7 45%, #22d3ee); }
+    .grad-btn:hover { filter: brightness(1.1); }
+    .skeleton { position: relative; overflow: hidden; background: #1e1e2a; }
+    .skeleton::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent); animation: shimmer 1.4s infinite; }
+    .grid-bg { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(ellipse at top, #000 25%, transparent 70%); mask-image: radial-gradient(ellipse at top, #000 25%, transparent 70%); }
+    select { background-image: none; }
+    .tab-active { background: linear-gradient(90deg, rgba(139,92,246,.25), rgba(34,211,238,.18)); color: #fff; border-color: rgba(168,85,247,.55); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body class="font-sans text-slate-200 antialiased min-h-screen flex flex-col selection:bg-neon-purple/40">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-ink-950/70 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 font-extrabold text-lg text-white">
+        <span class="w-8 h-8 rounded-lg grad-btn grid place-items-center shadow-glow"><i data-lucide="zap" class="w-4 h-4 text-white"></i></span>
+        HookMaster <span class="grad-text">AI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm text-slate-400">
+        <a href="#generator" class="hover:text-white transition">Generator</a>
+        <a href="#how" class="hover:text-white transition">How it works</a>
+        <button data-open-pricing class="hover:text-white transition">Pricing</button>
+      </nav>
+      <button data-open-pricing class="text-sm font-semibold px-4 py-2 rounded-xl border border-neon-purple/40 text-white hover:bg-neon-purple/15 transition flex items-center gap-1.5">
+        <i data-lucide="crown" class="w-4 h-4 text-neon-cyan"></i> Go Pro
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="flex-1">
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+      <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[34rem] h-[34rem] rounded-full bg-neon-purple/25 blur-[120px] pointer-events-none"></div>
+      <div class="absolute top-40 -right-24 w-80 h-80 rounded-full bg-neon-cyan/15 blur-[110px] pointer-events-none"></div>
+
+      <div class="relative max-w-3xl mx-auto px-4 pt-14 pb-10 sm:pt-20 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6 animate-fadeUp">
+          <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span></span>
+          Built for TikTok &amp; Instagram Reels creators
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-[1.05] animate-fadeUp">
+          Generate <span class="grad-text">Viral Hooks</span> &amp; Scripts in 5&nbsp;Seconds
+        </h1>
+        <p class="mt-5 text-base sm:text-lg text-slate-400 max-w-xl mx-auto animate-fadeUp">
+          Stop struggling with low views. Get AI-generated TikTok &amp; Reels hooks that grab attention instantly.
+        </p>
+
+        <!-- GENERATOR FORM -->
+        <form id="generator" autocomplete="off" class="mt-9 text-left rounded-3xl bg-ink-800/80 border border-white/10 p-4 sm:p-6 shadow-glow backdrop-blur animate-fadeUp scroll-mt-24">
+          <label for="topic" class="block text-sm font-semibold text-slate-300 mb-2">Topic / Niche</label>
+          <div class="relative">
+            <i data-lucide="sparkles" class="w-5 h-5 text-neon-purple absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            <input id="topic" type="text" maxlength="80" placeholder="e.g. Coffee shop promo, Fitness motivation"
+              class="w-full h-14 pl-12 pr-4 rounded-2xl bg-ink-900 border border-white/10 text-white placeholder-slate-500 text-base focus:outline-none focus:border-neon-purple focus:ring-2 focus:ring-neon-purple/30 transition" />
+          </div>
+          <p id="topicError" class="hidden mt-2 text-sm text-rose-400 flex items-center gap-1.5"><i data-lucide="alert-circle" class="w-4 h-4"></i> Please enter a topic or niche first.</p>
+
+          <div class="mt-3 flex gap-2 overflow-x-auto no-scrollbar -mx-1 px-1" aria-label="Example topics">
+            <button type="button" data-example="Coffee shop promo" class="shrink-0 text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-neon-cyan/50 hover:text-white text-slate-400 transition">☕ Coffee shop promo</button>
+            <button type="button" data-example="Fitness motivation" class="shrink-0 text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-neon-cyan/50 hover:text-white text-slate-400 transition">💪 Fitness motivation</button>
+            <button type="button" data-example="Skincare routine" class="shrink-0 text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-neon-cyan/50 hover:text-white text-slate-400 transition">✨ Skincare routine</button>
+            <button type="button" data-example="Online business" class="shrink-0 text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-neon-cyan/50 hover:text-white text-slate-400 transition">💼 Online business</button>
+          </div>
+
+          <label for="tone" class="block text-sm font-semibold text-slate-300 mt-5 mb-2">Tone</label>
+          <div class="relative">
+            <select id="tone" class="appearance-none w-full h-14 pl-4 pr-12 rounded-2xl bg-ink-900 border border-white/10 text-white text-base focus:outline-none focus:border-neon-cyan focus:ring-2 focus:ring-neon-cyan/30 transition cursor-pointer">
+              <option value="viral">🔥 Viral</option>
+              <option value="funny">😂 Funny</option>
+              <option value="educational">🎓 Educational</option>
+              <option value="controversial">⚡ Controversial</option>
+              <option value="energy">🚀 High-Energy</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          </div>
+
+          <button id="generateBtn" type="submit"
+            class="grad-btn mt-6 w-full h-14 rounded-2xl font-extrabold text-base sm:text-lg text-white shadow-glow transition active:scale-[.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+            <span id="btnLabel">Generate Viral Script ⚡</span>
+          </button>
+
+          <p id="attemptNote" class="mt-3 text-center text-xs text-slate-500 flex items-center justify-center gap-1.5">
+            <i data-lucide="gift" class="w-3.5 h-3.5 text-neon-cyan"></i> 1 free generation · No credit card required
+          </p>
+        </form>
+
+        <div class="mt-8 flex items-center justify-center gap-6 text-xs text-slate-500">
+          <div class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-neon-cyan"></i> No signup</div>
+          <div class="flex items-center gap-1.5"><i data-lucide="timer" class="w-4 h-4 text-neon-cyan"></i> ~5 sec</div>
+          <div class="flex items-center gap-1.5"><i data-lucide="smartphone" class="w-4 h-4 text-neon-cyan"></i> Mobile-ready</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="hidden px-4 pb-16 scroll-mt-20">
+      <div class="max-w-3xl mx-auto">
+
+        <!-- Loading -->
+        <div id="loadingCard" class="hidden rounded-3xl bg-ink-800/80 border border-white/10 p-5 sm:p-7 animate-pop">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl grad-btn grid place-items-center animate-pulse"><i data-lucide="brain-circuit" class="w-5 h-5 text-white"></i></div>
+            <div>
+              <p class="font-bold text-white" id="loadingTitle">Analyzing trends…</p>
+              <p class="text-xs text-slate-500">Crafting scroll-stopping hooks for you</p>
+            </div>
+          </div>
+          <div class="h-1.5 w-full rounded-full bg-ink-700 overflow-hidden mb-6">
+            <div id="progressBar" class="h-full w-0 grad-btn rounded-full transition-all duration-300 ease-out"></div>
+          </div>
+          <div class="space-y-3">
+            <div class="skeleton h-16 rounded-2xl"></div>
+            <div class="skeleton h-16 rounded-2xl"></div>
+            <div class="skeleton h-16 rounded-2xl"></div>
+            <div class="skeleton h-28 rounded-2xl"></div>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div id="resultCard" class="hidden rounded-3xl bg-ink-800/80 border border-white/10 shadow-glowCyan overflow-hidden animate-pop">
+          <div class="px-5 sm:px-7 pt-6 pb-4 border-b border-white/5">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-xs uppercase tracking-widest text-neon-cyan font-semibold">Your viral pack</p>
+                <h2 id="resultTitle" class="mt-1 text-xl sm:text-2xl font-extrabold text-white break-words"></h2>
+              </div>
+              <span id="toneBadge" class="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full bg-neon-purple/15 border border-neon-purple/40 text-neon-purple"></span>
+            </div>
+
+            <!-- Tabs -->
+            <div class="mt-5 grid grid-cols-3 gap-2" role="tablist">
+              <button role="tab" data-tab="hooks" class="tab-btn tab-active border border-white/10 rounded-xl py-2.5 text-sm font-semibold text-slate-400 transition flex items-center justify-center gap-1.5"><i data-lucide="flame" class="w-4 h-4"></i> Hooks</button>
+              <button role="tab" data-tab="script" class="tab-btn border border-white/10 rounded-xl py-2.5 text-sm font-semibold text-slate-400 transition flex items-center justify-center gap-1.5"><i data-lucide="clapperboard" class="w-4 h-4"></i> Script</button>
+              <button role="tab" data-tab="cta" class="tab-btn border border-white/10 rounded-xl py-2.5 text-sm font-semibold text-slate-400 transition flex items-center justify-center gap-1.5"><i data-lucide="megaphone" class="w-4 h-4"></i> CTA</button>
+            </div>
+          </div>
+
+          <div class="p-5 sm:p-7">
+            <!-- Hooks panel -->
+            <div id="panel-hooks" class="tab-panel space-y-3 animate-fadeUp"></div>
+
+            <!-- Script panel -->
+            <div id="panel-script" class="tab-panel hidden animate-fadeUp">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-white flex items-center gap-2"><i data-lucide="timer" class="w-4 h-4 text-neon-cyan"></i> 15-Second Script Breakdown</h3>
+                <button id="copyScriptBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-neon-cyan/50 text-slate-300 hover:text-white transition flex items-center gap-1.5"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy all</button>
+              </div>
+              <div id="scriptList" class="space-y-3"></div>
+            </div>
+
+            <!-- CTA panel -->
+            <div id="panel-cta" class="tab-panel hidden animate-fadeUp">
+              <div class="rounded-2xl p-5 bg-gradient-to-br from-neon-purple/15 to-neon-cyan/10 border border-neon-purple/30">
+                <p class="text-xs uppercase tracking-widest text-neon-cyan font-semibold mb-2 flex items-center gap-1.5"><i data-lucide="megaphone" class="w-4 h-4"></i> CTA Suggestion</p>
+                <p id="ctaText" class="text-lg font-bold text-white leading-snug"></p>
+                <p id="ctaWhy" class="mt-3 text-sm text-slate-400"></p>
+                <button id="copyCtaBtn" class="mt-4 text-xs font-semibold px-3 py-2 rounded-lg bg-white/10 border border-white/10 hover:border-neon-cyan/50 text-white transition flex items-center gap-1.5"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy CTA</button>
+              </div>
+              <div class="mt-4 grid sm:grid-cols-2 gap-3">
+                <div class="rounded-2xl p-4 bg-ink-900 border border-white/5">
+                  <p class="text-xs text-slate-500 mb-1">Suggested caption</p>
+                  <p id="captionText" class="text-sm text-slate-200"></p>
+                </div>
+                <div class="rounded-2xl p-4 bg-ink-900 border border-white/5">
+                  <p class="text-xs text-slate-500 mb-1">Hashtags</p>
+                  <p id="hashtagText" class="text-sm text-neon-cyan break-words"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-5 sm:px-7 pb-6">
+            <button id="regenBtn" class="w-full h-12 rounded-xl border border-white/10 bg-white/5 hover:border-neon-purple/50 text-sm font-semibold text-slate-200 hover:text-white transition flex items-center justify-center gap-2">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i> Generate another version
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="px-4 py-16 border-t border-white/5 scroll-mt-20">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-center text-2xl sm:text-4xl font-extrabold text-white">From idea to <span class="grad-text">viral</span> in 3 steps</h2>
+        <div class="mt-10 grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl bg-ink-800/70 border border-white/10 p-6">
+            <div class="w-11 h-11 rounded-xl bg-neon-purple/15 border border-neon-purple/30 grid place-items-center mb-4"><i data-lucide="type" class="w-5 h-5 text-neon-purple"></i></div>
+            <h3 class="font-bold text-white">1. Enter your niche</h3>
+            <p class="mt-1.5 text-sm text-slate-400">Type any topic: a product, a service, a personal brand or an idea.</p>
+          </div>
+          <div class="rounded-2xl bg-ink-800/70 border border-white/10 p-6">
+            <div class="w-11 h-11 rounded-xl bg-neon-cyan/10 border border-neon-cyan/30 grid place-items-center mb-4"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-neon-cyan"></i></div>
+            <h3 class="font-bold text-white">2. Pick a tone</h3>
+            <p class="mt-1.5 text-sm text-slate-400">Viral, funny, educational, controversial or high-energy. You choose the vibe.</p>
+          </div>
+          <div class="rounded-2xl bg-ink-800/70 border border-white/10 p-6">
+            <div class="w-11 h-11 rounded-xl bg-neon-pink/10 border border-neon-pink/30 grid place-items-center mb-4"><i data-lucide="video" class="w-5 h-5 text-neon-pink"></i></div>
+            <h3 class="font-bold text-white">3. Film &amp; post</h3>
+            <p class="mt-1.5 text-sm text-slate-400">Get 3 hooks, a shot-by-shot script and a CTA. Hit record.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 bg-ink-950">
+    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+      <div class="flex items-center gap-2 font-bold text-slate-300">
+        <span class="w-6 h-6 rounded-md grad-btn grid place-items-center"><i data-lucide="zap" class="w-3.5 h-3.5 text-white"></i></span> HookMaster AI
+      </div>
+      <nav class="flex items-center gap-5">
+        <a href="#" class="hover:text-white transition">Privacy</a>
+        <a href="#" class="hover:text-white transition">Terms</a>
+        <a href="#" class="hover:text-white transition">Contact</a>
+      </nav>
+      <p class="flex items-center gap-1.5 text-center">© <span id="year"></span> HookMaster AI · <i data-lucide="cpu" class="w-3.5 h-3.5 text-neon-cyan"></i> Powered by AI</p>
+    </div>
+  </footer>
+
+  <!-- PRICING MODAL -->
+  <div id="pricingModal" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="pricingTitle">
+    <div id="modalBackdrop" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 overflow-y-auto">
+      <div class="min-h-full flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div id="modalPanel" class="relative w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-ink-800 border border-neon-purple/30 shadow-glow p-6 sm:p-8 animate-pop">
+          <button id="closeModal" aria-label="Close" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 grid place-items-center text-slate-400 hover:text-white transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+
+          <div class="w-14 h-14 rounded-2xl grad-btn grid place-items-center shadow-glow mx-auto animate-float">
+            <i data-lucide="crown" class="w-7 h-7 text-white"></i>
+          </div>
+          <h2 id="pricingTitle" class="mt-5 text-center text-2xl font-black text-white">Unlock Unlimited Viral Scripts</h2>
+          <p id="modalSub" class="mt-2 text-center text-sm text-slate-400">You've used your free generation. Go Pro to keep creating.</p>
+
+          <div class="mt-6 text-center">
+            <span class="text-5xl font-black grad-text">$5</span>
+            <span class="text-slate-400 font-medium"> / month</span>
+            <p class="text-xs text-slate-500 mt-1">Cancel anytime</p>
+          </div>
+
+          <ul class="mt-6 space-y-3">
+            <li class="flex items-center gap-3 text-sm text-slate-200"><span class="w-6 h-6 rounded-full bg-neon-cyan/15 grid place-items-center shrink-0"><i data-lucide="check" class="w-4 h-4 text-neon-cyan"></i></span> Cheksiz ssenariylar</li>
+            <li class="flex items-center gap-3 text-sm text-slate-200"><span class="w-6 h-6 rounded-full bg-neon-cyan/15 grid place-items-center shrink-0"><i data-lucide="check" class="w-4 h-4 text-neon-cyan"></i></span> Trenddagi AI shablonlar</li>
+            <li class="flex items-center gap-3 text-sm text-slate-200"><span class="w-6 h-6 rounded-full bg-neon-cyan/15 grid place-items-center shrink-0"><i data-lucide="check" class="w-4 h-4 text-neon-cyan"></i></span> Content-calendar generator</li>
+          </ul>
+
+          <button id="upgradeBtn" class="grad-btn mt-7 w-full h-14 rounded-2xl font-extrabold text-white shadow-glow transition active:scale-[.98] flex items-center justify-center gap-2">
+            <i data-lucide="lock-open" class="w-5 h-5"></i> Unlock Pro for $5/mo
+          </button>
+          <button id="maybeLater" class="mt-3 w-full text-sm text-slate-500 hover:text-slate-300 transition py-2">Maybe later</button>
+          <p class="mt-2 text-center text-[11px] text-slate-600 flex items-center justify-center gap-1"><i data-lucide="shield-check" class="w-3 h-3"></i> Secure checkout · 7-day money-back guarantee</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed left-1/2 -translate-x-1/2 bottom-6 z-[60] pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-ink-700 border border-neon-cyan/40 text-sm font-medium text-white shadow-glowCyan">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-neon-cyan"></i> <span id="toastText">Copied!</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ------------------------------------------------------------------
+         CONFIG & STATE
+      ------------------------------------------------------------------ */
+      const FREE_ATTEMPTS = 1;
+      const state = {
+        attempts: 0,       // completed generations
+        isLoading: false,
+        isPro: false,
+        current: null,     // last generated pack
+        variant: 0         // used to rotate content on re-generation
+      };
+
+      const TONES = {
+        viral:         { label: '🔥 Viral' },
+        funny:         { label: '😂 Funny' },
+        educational:   { label: '🎓 Educational' },
+        controversial: { label: '⚡ Controversial' },
+        energy:        { label: '🚀 High-Energy' }
+      };
+
+      /* ------------------------------------------------------------------
+         CONTENT TEMPLATES (dummy "AI" output) — {t} = topic
+      ------------------------------------------------------------------ */
+      const TEMPLATES = {
+        viral: {
+          hooks: [
+            ['Nobody is talking about this {t} secret… and it\'s costing you views.', 'Stop scrolling: this {t} trick took me from 200 to 200,000 views.', 'I tested 30 days of {t} so you don\'t have to. Here\'s what actually worked.'],
+            ['This one {t} mistake is killing your reach (and you don\'t even know it).', 'POV: you finally cracked {t} and the algorithm noticed.', 'If your {t} content isn\'t blowing up, watch this before you post again.']
+          ],
+          script: [
+            { time: '0–3s',  visual: 'Tight close-up, direct eye contact, quick zoom-in punch', audio: '{hook}' },
+            { time: '3–7s',  visual: 'Fast cuts: screen recording / b-roll of {t} with bold text overlay', audio: 'Most people get {t} completely wrong. They focus on effort instead of the one thing the algorithm rewards: attention in the first second.' },
+            { time: '7–12s', visual: 'Show the result: before/after split screen, arrow pointing at key number', audio: 'Here\'s what I changed: one clear promise up front, one proof point, zero fluff. Views went up immediately.' },
+            { time: '12–15s', visual: 'Back to camera, point to the follow button, end-card with text', audio: '{cta}' }
+          ],
+          cta: ['Follow for part 2, I\'m revealing the exact template tomorrow.', 'Pattern interrupt + curiosity gap: promising a "part 2" lifts follows and repeat views.'],
+          caption: 'The {t} trick nobody teaches 👀 Save this before it gets buried.',
+          tags: '#fyp #viral #contentcreator #growthhacks #reelstips'
+        },
+        funny: {
+          hooks: [
+            ['Me explaining {t} to my friends at 2AM like I\'m a TED speaker 😭', 'Tell me you\'re obsessed with {t} without telling me you\'re obsessed with {t}.', 'Nobody: … Me, a {t} person, the moment anyone says the word "tips":'],
+            ['POV: your {t} plan vs. what actually happens (be honest).', 'My {t} journey in 3 stages: confidence, chaos, crying.', 'Bro really thought {t} would be easy 💀']
+          ],
+          script: [
+            { time: '0–3s',  visual: 'Over-the-top dramatic face, caption pop-in with meme sound', audio: '{hook}' },
+            { time: '3–7s',  visual: 'Skit: "Expectation" shot, then jump-cut to "Reality" with sound effect', audio: 'Expectation: smooth, aesthetic {t} life. Reality: me, three tabs open, zero clue.' },
+            { time: '7–12s', visual: 'Relatable reaction, slow zoom, freeze-frame on the funniest expression', audio: 'But honestly? Once I learned this one tiny thing, {t} got way easier. And funnier.' },
+            { time: '12–15s', visual: 'Shrug at camera, text: "tag that friend"', audio: '{cta}' }
+          ],
+          cta: ['Tag the friend who needs this and follow for more chaos.', 'Humor drives shares. A "tag someone" CTA turns viewers into distribution.'],
+          caption: 'Be honest, which one are you? 😂 #relatable',
+          tags: '#funny #relatable #pov #comedy #fyp'
+        },
+        educational: {
+          hooks: [
+            ['3 things I wish I knew before starting with {t}.', 'Here\'s the 60-second guide to {t} that actually makes sense.', 'Most beginners fail at {t} for the same reason. Here\'s the fix.'],
+            ['The simple 3-step framework for {t} (save this).', 'Why does {t} work? Here\'s the science in 15 seconds.', 'Do this, not that: {t} edition.']
+          ],
+          script: [
+            { time: '0–3s',  visual: 'Talking head with big numbered text "3 THINGS" on screen', audio: '{hook}' },
+            { time: '3–7s',  visual: 'Step 1 on screen with icon, quick b-roll of {t}', audio: 'One: start with the end goal. Know exactly what result you want from {t} before doing anything else.' },
+            { time: '7–12s', visual: 'Steps 2 and 3 appear with checkmarks, quick cuts', audio: 'Two: keep it simple, one core idea per video. Three: track one metric only, and improve it weekly.' },
+            { time: '12–15s', visual: 'Pointing down at the save icon, end-card with recap', audio: '{cta}' }
+          ],
+          cta: ['Save this for later and follow for a new {t} tip every day.', 'Educational content gets saved. Saves are a strong ranking signal on both platforms.'],
+          caption: 'Save this {t} cheat sheet 📌 You\'ll thank yourself later.',
+          tags: '#learnontiktok #tips #howto #education #fyp'
+        },
+        controversial: {
+          hooks: [
+            ['Unpopular opinion: most {t} advice is complete garbage.', 'I\'m going to get hate for this, but {t} is overrated. Here\'s why.', 'Everyone in the {t} space is lying to you about this.'],
+            ['Stop doing {t} like everyone else. It\'s why you\'re stuck.', 'The {t} industry doesn\'t want you to know this.', 'Hot take: you\'re wasting your time on {t} unless you do this.']
+          ],
+          script: [
+            { time: '0–3s',  visual: 'Serious face, hard cut, bold red text "UNPOPULAR OPINION"', audio: '{hook}' },
+            { time: '3–7s',  visual: 'Show the "common advice" crossed out with a red X', audio: 'Everyone says to post daily and chase trends with {t}. That\'s exactly how you become invisible.' },
+            { time: '7–12s', visual: 'Reveal the better approach, green checkmark, confident delivery', audio: 'Do the opposite: go deep on one angle, be specific, and make people feel something in the first second.' },
+            { time: '12–15s', visual: 'Lean toward the camera, raised eyebrow', audio: '{cta}' }
+          ],
+          cta: ['Agree or disagree? Drop your take in the comments.', 'Debate-driven comments boost watch time and engagement, so the algorithm pushes it further.'],
+          caption: 'Fight me in the comments 👇 Agree or disagree?',
+          tags: '#unpopularopinion #hottake #debate #fyp #truth'
+        },
+        energy: {
+          hooks: [
+            ['STOP EVERYTHING. This {t} hack changes the game right now! 🚀', 'You are ONE video away from blowing up with {t}. Let\'s GO!', '3… 2… 1… watch this {t} transformation!'],
+            ['Wait for it… this {t} result is INSANE!', 'Drop what you\'re doing: {t} just got a MASSIVE upgrade!', 'Your {t} era starts NOW. Here\'s how, fast!']
+          ],
+          script: [
+            { time: '0–3s',  visual: 'Jump-cut burst, high-energy beat drop, camera shake + zoom', audio: '{hook}' },
+            { time: '3–7s',  visual: 'Rapid montage of {t}, flashing captions on every beat', audio: 'Here\'s the deal, it\'s FAST, it\'s SIMPLE, and it works for literally anyone doing {t}!' },
+            { time: '7–12s', visual: 'Big result reveal with sound effect, confetti or glow overlay', audio: 'Look at that result! One tweak, massive difference. You\'ve got to try this today!' },
+            { time: '12–15s', visual: 'Fist pump, end-card with bold "FOLLOW" button animation', audio: '{cta}' }
+          ],
+          cta: ['Hit follow RIGHT NOW and let\'s go viral together! 🔥', 'High-energy urgency pushes action. Short, loud CTAs convert best on fast-paced videos.'],
+          caption: 'LET\'S GOOO 🚀🔥 Try this today and tell me your results!',
+          tags: '#motivation #energy #letsgo #fyp #trending'
+        }
+      };
+
+      /* ------------------------------------------------------------------
+         DOM HELPERS
+      ------------------------------------------------------------------ */
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+      const refreshIcons = () => { if (window.lucide) window.lucide.createIcons(); };
+
+      const els = {
+        form: $('#generator'),
+        topic: $('#topic'),
+        tone: $('#tone'),
+        topicError: $('#topicError'),
+        generateBtn: $('#generateBtn'),
+        btnLabel: $('#btnLabel'),
+        attemptNote: $('#attemptNote'),
+        results: $('#results'),
+        loadingCard: $('#loadingCard'),
+        loadingTitle: $('#loadingTitle'),
+        progressBar: $('#progressBar'),
+        resultCard: $('#resultCard'),
+        resultTitle: $('#resultTitle'),
+        toneBadge: $('#toneBadge'),
+        panelHooks: $('#panel-hooks'),
+        scriptList: $('#scriptList'),
+        ctaText: $('#ctaText'),
+        ctaWhy: $('#ctaWhy'),
+        captionText: $('#captionText'),
+        hashtagText: $('#hashtagText'),
+        regenBtn: $('#regenBtn'),
+        copyScriptBtn: $('#copyScriptBtn'),
+        copyCtaBtn: $('#copyCtaBtn'),
+        modal: $('#pricingModal'),
+        modalSub: $('#modalSub'),
+        toast: $('#toast'),
+        toastText: $('#toastText')
+      };
+
+      const fill = (str, map) => str.replace(/\{(\w+)\}/g, (_, k) => (k in map ? map[k] : ''));
+
+      /* ------------------------------------------------------------------
+         TOAST + CLIPBOARD
+      ------------------------------------------------------------------ */
+      let toastTimer;
+      function showToast(message) {
+        els.toastText.textContent = message;
+        els.toast.classList.remove('opacity-0', 'translate-y-3');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => els.toast.classList.add('opacity-0', 'translate-y-3'), 1800);
+      }
+
+      async function copyText(text) {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            throw new Error('Clipboard API unavailable');
+          }
+        } catch (e) {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (err) { /* ignore */ }
+          document.body.removeChild(ta);
+        }
+        showToast('Copied to clipboard!');
+      }
+
+      /* ------------------------------------------------------------------
+         GENERATION LOGIC
+      ------------------------------------------------------------------ */
+      function buildPack(topic, toneKey, variant) {
+        const tpl = TEMPLATES[toneKey] || TEMPLATES.viral;
+        const t = topic.trim();
+        const hooks = tpl.hooks[variant % tpl.hooks.length].map(h => fill(h, { t }));
+        const cta = fill(tpl.cta[0], { t });
+        const script = tpl.script.map(s => ({
+          time: s.time,
+          visual: fill(s.visual, { t }),
+          audio: fill(s.audio, { t, hook: hooks[0], cta })
+        }));
+        return {
+          topic: t,
+          toneKey,
+          hooks,
+          script,
+          cta,
+          ctaWhy: tpl.cta[1],
+          caption: fill(tpl.caption, { t }),
+          tags: tpl.tags
+        };
+      }
+
+      function renderPack(pack) {
+        els.resultTitle.textContent = pack.topic;
+        els.toneBadge.textContent = TONES[pack.toneKey].label;
+
+        // Hooks
+        els.panelHooks.innerHTML = '';
+        pack.hooks.forEach((hook, i) => {
+          const card = document.createElement('div');
+          card.className = 'group rounded-2xl p-4 bg-ink-900 border border-white/5 hover:border-neon-purple/40 transition';
+
+          const top = document.createElement('div');
+          top.className = 'flex items-center justify-between gap-3 mb-2';
+
+          const label = document.createElement('span');
+          label.className = 'text-xs font-bold uppercase tracking-widest text-neon-cyan';
+          label.textContent = 'Hook #' + (i + 1);
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'text-xs font-semibold px-3 py-1.5 rounded-lg bg-neon-purple/15 border border-neon-purple/40 text-neon-purple hover:bg-neon-purple/25 hover:text-white transition flex items-center gap-1.5';
+          btn.innerHTML = '<i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy';
+          btn.addEventListener('click', () => {
+            copyText(hook);
+            btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> Copied';
+            refreshIcons();
+            setTimeout(() => { btn.innerHTML = '<i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy'; refreshIcons(); }, 1400);
+          });
+
+          top.append(label, btn);
+
+          const text = document.createElement('p');
+          text.className = 'text-base sm:text-lg font-semibold text-white leading-snug';
+          const mark = document.createElement('span');
+          mark.className = 'bg-gradient-to-r from-neon-purple/30 to-neon-cyan/20 rounded px-1 -mx-1 box-decoration-clone';
+          mark.textContent = hook;
+          text.appendChild(mark);
+
+          card.append(top, text);
+          els.panelHooks.appendChild(card);
+        });
+
+        // Script
+        els.scriptList.innerHTML = '';
+        pack.script.forEach((seg, i) => {
+          const row = document.createElement('div');
+          row.className = 'rounded-2xl bg-ink-900 border border-white/5 overflow-hidden';
+
+          const head = document.createElement('div');
+          head.className = 'flex items-center justify-between px-4 py-2 bg-white/[.03] border-b border-white/5';
+          const step = document.createElement('span');
+          step.className = 'text-xs font-bold text-white';
+          step.textContent = ['Hook', 'Problem / Value', 'Proof / Payoff', 'Call to Action'][i] || 'Scene ' + (i + 1);
+          const time = document.createElement('span');
+          time.className = 'text-xs font-mono px-2 py-0.5 rounded-md bg-neon-cyan/10 text-neon-cyan';
+          time.textContent = seg.time;
+          head.append(step, time);
+
+          const body = document.createElement('div');
+          body.className = 'grid sm:grid-cols-2 gap-px bg-white/5';
+
+          const visual = document.createElement('div');
+          visual.className = 'p-4 bg-ink-900';
+          visual.innerHTML = '<p class="text-[11px] font-bold uppercase tracking-widest text-neon-pink mb-1.5 flex items-center gap-1.5"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Visual cue</p>';
+          const vt = document.createElement('p');
+          vt.className = 'text-sm text-slate-300';
+          vt.textContent = seg.visual;
+          visual.appendChild(vt);
+
+          const audio = document.createElement('div');
+          audio.className = 'p-4 bg-ink-900';
+          audio.innerHTML = '<p class="text-[11px] font-bold uppercase tracking-widest text-neon-purple mb-1.5 flex items-center gap-1.5"><i data-lucide="mic" class="w-3.5 h-3.5"></i> Audio script</p>';
+          const at = document.createElement('p');
+          at.className = 'text-sm text-white font-medium';
+          at.textContent = seg.audio;
+          audio.appendChild(at);
+
+          body.append(visual, audio);
+          row.append(head, body);
+          els.scriptList.appendChild(row);
+        });
+
+        // CTA
+        els.ctaText.textContent = pack.cta;
+        els.ctaWhy.textContent = pack.ctaWhy;
+        els.captionText.textContent = pack.caption;
+        els.hashtagText.textContent = pack.tags;
+
+        switchTab('hooks');
+        refreshIcons();
+      }
+
+      function packToScriptText(pack) {
+        const lines = ['HookMaster AI – ' + pack.topic + ' (' + TONES[pack.toneKey].label + ')', ''];
+        pack.script.forEach(s => {
+          lines.push('[' + s.time + ']');
+          lines.push('Visual: ' + s.visual);
+          lines.push('Audio: ' + s.audio);
+          lines.push('');
+        });
+        lines.push('CTA: ' + pack.cta);
+        return lines.join('\n');
+      }
+
+      /* ------------------------------------------------------------------
+         LOADING ANIMATION
+      ------------------------------------------------------------------ */
+      const LOADING_STEPS = ['Analyzing trends…', 'Studying top-performing hooks…', 'Writing your script…', 'Polishing the final cut…'];
+
+      function runLoading() {
+        return new Promise(resolve => {
+          const total = 2600;
+          const stepMs = total / LOADING_STEPS.length;
+          let elapsed = 0;
+          els.progressBar.style.width = '0%';
+          els.loadingTitle.textContent = LOADING_STEPS[0];
+
+          const interval = setInterval(() => {
+            elapsed += 100;
+            const pct = Math.min(100, Math.round((elapsed / total) * 100));
+            els.progressBar.style.width = pct + '%';
+            const idx = Math.min(LOADING_STEPS.length - 1, Math.floor(elapsed / stepMs));
+            els.loadingTitle.textContent = LOADING_STEPS[idx];
+            if (elapsed >= total) {
+              clearInterval(interval);
+              resolve();
+            }
+          }, 100);
+        });
+      }
+
+      function setButtonLoading(loading) {
+        state.isLoading = loading;
+        els.generateBtn.disabled = loading;
+        els.regenBtn.disabled = loading;
+        els.btnLabel.innerHTML = loading
+          ? '<svg class="animate-spin w-5 h-5 inline -mt-0.5 mr-2" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" stroke-width="4"></circle><path d="M22 12a10 10 0 0 0-10-10" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path></svg>Generating…'
+          : 'Generate Viral Script ⚡';
+      }
+
+      function updateAttemptNote() {
+        if (state.isPro) {
+          els.attemptNote.innerHTML = '<i data-lucide="crown" class="w-3.5 h-3.5 text-neon-cyan"></i> Pro unlocked · Unlimited generations';
+        } else if (state.attempts >= FREE_ATTEMPTS) {
+          els.attemptNote.innerHTML = '<i data-lucide="lock" class="w-3.5 h-3.5 text-neon-pink"></i> Free generation used · Upgrade to continue';
+        } else {
+          els.attemptNote.innerHTML = '<i data-lucide="gift" class="w-3.5 h-3.5 text-neon-cyan"></i> 1 free generation · No credit card required';
+        }
+        refreshIcons();
+      }
+
+      /* ------------------------------------------------------------------
+         MAIN FLOW
+      ------------------------------------------------------------------ */
+      async function handleGenerate(isRegen) {
+        if (state.isLoading) return;
+
+        const topic = els.topic.value.trim();
+        if (!topic) {
+          els.topicError.classList.remove('hidden');
+          els.topic.focus();
+          els.topic.classList.add('border-rose-500');
+          return;
+        }
+        els.topicError.classList.add('hidden');
+        els.topic.classList.remove('border-rose-500');
+
+        // Paywall gate: after the free attempt(s) are used
+        if (!state.isPro && state.attempts >= FREE_ATTEMPTS) {
+          openModal('You\'ve used your free generation. Go Pro to keep creating.');
+          return;
+        }
+
+        const toneKey = els.tone.value;
+        setButtonLoading(true);
+
+        els.results.classList.remove('hidden');
+        els.resultCard.classList.add('hidden');
+        els.loadingCard.classList.remove('hidden');
+        refreshIcons();
+        els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        await runLoading();
+
+        state.variant = isRegen ? state.variant + 1 : 0;
+        state.current = buildPack(topic, toneKey, state.variant);
+        state.attempts += 1;
+
+        els.loadingCard.classList.add('hidden');
+        renderPack(state.current);
+        els.resultCard.classList.remove('hidden');
+        els.resultCard.classList.remove('animate-pop');
+        void els.resultCard.offsetWidth; // restart animation
+        els.resultCard.classList.add('animate-pop');
+
+        setButtonLoading(false);
+        updateAttemptNote();
+        els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      /* ------------------------------------------------------------------
+         TABS
+      ------------------------------------------------------------------ */
+      function switchTab(name) {
+        $$('.tab-btn').forEach(btn => {
+          const active = btn.dataset.tab === name;
+          btn.classList.toggle('tab-active', active);
+          btn.classList.toggle('text-slate-400', !active);
+          btn.setAttribute('aria-selected', String(active));
+        });
+        $$('.tab-panel').forEach(panel => {
+          const show = panel.id === 'panel-' + name;
+          panel.classList.toggle('hidden', !show);
+        });
+      }
+
+      /* ------------------------------------------------------------------
+         MODAL
+      ------------------------------------------------------------------ */
+      function openModal(message) {
+        if (message) els.modalSub.textContent = message;
+        else els.modalSub.textContent = 'Create unlimited hooks and scripts that keep your views climbing.';
+        els.modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        refreshIcons();
+        setTimeout(() => $('#upgradeBtn').focus(), 50);
+      }
+
+      function closeModal() {
+        els.modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      function handleUpgrade() {
+        // Demo only: wire this to your real checkout (Stripe, Paddle, etc.)
+        state.isPro = true;
+        closeModal();
+        updateAttemptNote();
+        showToast('Pro unlocked (demo)! Generate away ⚡');
+      }
+
+      /* ------------------------------------------------------------------
+         EVENT BINDING
+      ------------------------------------------------------------------ */
+      function bindEvents() {
+        els.form.addEventListener('submit', e => { e.preventDefault(); handleGenerate(false); });
+        els.regenBtn.addEventListener('click', () => handleGenerate(true));
+
+        els.topic.addEventListener('input', () => {
+          if (els.topic.value.trim()) {
+            els.topicError.classList.add('hidden');
+            els.topic.classList.remove('border-rose-500');
+          }
+        });
+
+        $$('[data-example]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            els.topic.value = btn.dataset.example;
+            els.topic.dispatchEvent(new Event('input'));
+            els.topic.focus();
+          });
+        });
+
+        $$('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+
+        els.copyScriptBtn.addEventListener('click', () => { if (state.current) copyText(packToScriptText(state.current)); });
+        els.copyCtaBtn.addEventListener('click', () => { if (state.current) copyText(state.current.cta); });
+
+        $$('[data-open-pricing]').forEach(btn => btn.addEventListener('click', () => openModal()));
+        $('#closeModal').addEventListener('click', closeModal);
+        $('#maybeLater').addEventListener('click', closeModal);
+        $('#modalBackdrop').addEventListener('click', closeModal);
+        $('#upgradeBtn').addEventListener('click', handleUpgrade);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && !els.modal.classList.contains('hidden')) closeModal(); });
+      }
+
+      /* ------------------------------------------------------------------
+         INIT
+      ------------------------------------------------------------------ */
+      function init() {
+        $('#year').textContent = new Date().getFullYear();
+        bindEvents();
+        refreshIcons();
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+  </script>
+</body>
+</html>
