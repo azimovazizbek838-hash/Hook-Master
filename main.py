@@ -191,7 +191,8 @@ def check_rate_limit(ip: str) -> None:
     window.append(now)
             ]
         )
-        result = response.choices[0].message.content
+        
+result = response.choices[0].message.content
         
         # Muvaffaqiyatli o'tgandan keyin bu IP ning urinishini 1 taga oshiramiz
         user_attempts[client_ip] = current_count + 1
