@@ -272,7 +272,19 @@ async def generate(payload: GenerateRequest, request: Request):
                 max_tokens=900,
             )
             raw = completion.choices[0].message.content or "{}"
-            content = GeneratedContent.model_validate(json.loads(raw))
+            content = GeneratedContent.model_validate(json.loads(raw)
+@app.post("/api/generate", response_model=GenerateResponse)
+async def generate(payload: GenerateRequest, request: Request):
+    check_rate_limit(client_ip(request))
+    
+    # --- SHU YERGA QO'SHASAN (225-qator atrofida) ---
+    ip = client_ip(request)
+    if free_attempts.get(ip, 0) >= 1:
+        raise HTTPException(status_code=403, detail="Free limit reached. Upgrade to continue.")
+    # -----------------------------------------------
+
+    client: AsyncOpenAI | None = request.app.state.openai
+
             return GenerateResponse(
                 **content.model_dump(),
                 topic=payload.topic,
