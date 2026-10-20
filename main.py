@@ -181,7 +181,7 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-        def check_rate_limit(ip: str) -> None:
+def check_rate_limit(ip: str) -> None:
     now = time.monotonic()
     window = _hits[ip]
     while window and now - window[0] > 60:
