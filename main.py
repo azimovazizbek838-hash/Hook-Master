@@ -172,6 +172,7 @@ def build_user_prompt(topic: str, tone: str) -> str:
 # NOTE: per-process only. Use Redis (e.g. slowapi + Redis) for multi-instance deployments.
 # --------------------------------------------------------------------------
 _hits: Dict[str, Deque[float]] = defaultdict(deque)
+free_attempts: Dict[str, int] = {}
 
 
 def client_ip(request: Request) -> str:
