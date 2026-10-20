@@ -181,7 +181,21 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-def check_rate_limit(ip: str) -> None:
+    def check_rate_limit(ip: str) -> None:
+    now = time.monotonic()
+    window = _hits[ip]
+    while window and now - window[0] > 60:
+        window.popleft()
+    if len(window) >= RATE_LIMIT_PER_MIN:
+        retry_after = max(1, int(60 - (now - window[0])))
+        raise HTTPException(
+            status_code=429,
+            detail="Too many requests. Please slow down.",
+            headers={"Retry-After": str(retry_after)},
+        )
+    window.append(now)
+
+    
     try:
         # OpenAI orqali generatsiya qilish jarayoni
         response = client.chat.completions.create(
