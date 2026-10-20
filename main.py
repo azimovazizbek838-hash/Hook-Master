@@ -187,16 +187,13 @@ def check_rate_limit(ip: str) -> None:
         window.popleft()
     if len(window) >= RATE_LIMIT_PER_MIN:
         retry_after = max(1, int(60 - (now - window[0])))
-        raise HTTPException(status_code=429, detail="Too many requests. Please slow down.", headers={"Retry-After": str(retry_after)})
-    window.append(now)
-            ]
+        raise HTTPException(
+            status_code=429,
+            detail="Too many requests. Please slow down.",
+            headers={"Retry-After": str(retry_after)},
         )
-        
-result = response.choices[0].message.content
-        
-        # Muvaffaqiyatli o'tgandan keyin bu IP ning urinishini 1 taga oshiramiz
-        user_attempts[client_ip] = current_count + 1
-        
+    window.append(now)
+
         return {"status": "success", "result": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
