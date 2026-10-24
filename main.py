@@ -302,3 +302,15 @@ async def generate(payload: GenerateRequest, request: Request):
 
     logger.error("Giving up after retries: %s", last_error)
     raise HTTPException(status_code=502, detail="AI returned an invalid response. Please retry.")
+
+import os
+from dotenv import load_dotenv
+
+# .env faylini xotiraga yuklash
+load_dotenv()
+
+# Kalitlarni o'qib olish
+LEMON_API_KEY = os.getenv("LEMON_SQUEEZY_API_KEY")
+STORE_ID = os.getenv("LEMON_SQUEEZY_STORE_ID")
+WEBHOOK_SECRET = os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET")
+
