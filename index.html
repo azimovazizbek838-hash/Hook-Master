@@ -802,9 +802,20 @@
         $('#year').textContent = new Date().getFullYear();
         bindEvents();
         updateAttemptNote(); // Xotira holatiga qarab textni yangilash
-        refreshIcons();
-      }
+  
+  // Lemon Squeezy to'lovidan muvaffaqiyatli o'tgach Pro statusni yoqish
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('payment') === 'success') {
+    state.isPro = true;
+    localStorage.setItem('hookmaster_is_pro', 'true');
+    showToast('🎉 Pro versiya muvaffaqiyatli faollashtirildi!');
+  } else if (localStorage.getItem('hookmaster_is_pro') === 'true') {
+    state.isPro = true;
+  }
 
+  updateAttemptNote();
+  refreshIcons();
+      }
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
       else init();
     })();
