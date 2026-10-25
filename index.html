@@ -808,18 +808,6 @@
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
       else init();
     })();
-  </script>
-  // Lemon Squeezy to'lovidan muvaffaqiyatli o'tgach Pro statusni yoqish
-(function checkPaymentSuccess() {
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('payment') === 'success') {
-    state.isPro = true;
-    localStorage.setItem('hookmaster_is_pro', 'true');
-    updateAttemptNote();
-    showToast('🎉 Pro versiya muvaffaqiyatli faollashtirildi!');
-  } else if (localStorage.getItem('hookmaster_is_pro') === 'true') {
-    state.isPro = true;
-  }
-})(); 
+  </script> 
 </body>
 </html>
