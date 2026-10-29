@@ -14,18 +14,18 @@ export default function App() {
         console.error("Ulanishda xatolik:", error);
       }
     } else {
-      alert("Trust Wallet topilmadi! Iltimos, hamyonni o'rnating.");
+      alert("Trust Wallet topilmadi! Iltimos, Trust Wallet ilovasining brauzeridan kiring.");
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px', fontFamily: 'sans-serif' }}>
+    <div style={{ textAlign: 'center', marginTop: '100px', fontFamily: 'sans-serif', padding: '20px' }}>
       <h1>Hook Master AI</h1>
       <p>Trust Wallet'ni ulash uchun pastdagi tugmani bosing:</p>
       <button 
         onClick={connectTrustWallet} 
         style={{ 
-          padding: '12px 24px', 
+          padding: '14px 28px', 
           fontSize: '16px', 
           backgroundColor: '#3375BB', 
           color: '#fff', 
