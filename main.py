@@ -314,3 +314,66 @@ LEMON_API_KEY = os.getenv("LEMON_SQUEEZY_API_KEY")
 STORE_ID = os.getenv("LEMON_SQUEEZY_STORE_ID")
 WEBHOOK_SECRET = os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET")
 
+import telebot # agar pyTelegramBotAPI ishlatayotgan bo'lsang
+import requests
+
+# Bot tokeni va sozlamalar
+bot = telebot.TeleBot("SENING_BOT_TOKENING")
+
+WALLET_ADDRESS = "TNqhvttcMhmhqFnkmtZcaZRbYJyGqXFZBg"
+USDT_CONTRACT_ADDRESS = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"
+
+# 1. Birinchi funksiya (TronGrid'ni tekshiradigan)
+def check_latest_usdt_payment(expected_amount, used_txids=[]):
+    try:
+        url = f"https://api.trongrid.io/v1/accounts/{WALLET_ADDRESS}/transactions/trc20"
+        params = {
+            "limit": 10,
+            "contract_address": USDT_CONTRACT_ADDRESS
+        }
+        headers = {"accept": "application/json"}
+        
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        data = response.json()
+        
+        if "data" in data:
+            for tx in data["data"]:
+                if tx.get("to") == WALLET_ADDRESS:
+                    tx_id = tx.get("transaction_id")
+                    
+                    if tx_id in used_txids:
+                        continue
+                        
+                    raw_value = int(tx.get("value", 0))
+                    amount = raw_value / 1_000_000
+                    
+                    if amount == float(expected_amount):
+                        return {
+                            "status": True, 
+                            "txid": tx_id, 
+                            "amount": amount
+                        }
+                           
+        return {"status": False}
+    except Exception as e:
+        print(f"API xatoligi: {e}")
+        return {"status": False}
+
+
+# 2. Ikkinchi kod (Tugma bosilganda ishlaydigan handler) shuning tagiga qo'shiladi:
+@bot.callback_query_handler(func=lambda call: call.data == "check_payment")
+def verify_payment(call):
+    expected_sum = 5.02  # Foydalanuvchiga chiqarib bergan summang
+    
+    result = check_latest_usdt_payment(expected_sum)
+    
+    if result["status"]:
+        bot.answer_callback_query(call.id, "To'lov muvaffaqiyatli tasdiqlandi! 🎉")
+        bot.send_message(call.message.chat.id, f"Pul kelib tushdi! TXID: {result['txid']}")
+        # Shu yerda bazaga obunani faollashtirish kodini yozasan
+    else:
+        bot.answer_callback_query(call.id, "Hozircha to'lov topilmadi. Birozdan keyin yana urinib ko'ring.", show_alert=True)
+
+
+# Botni doimiy ishlab turishi uchun
+bot.infinity_polling()
