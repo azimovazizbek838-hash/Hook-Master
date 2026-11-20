@@ -29,7 +29,7 @@ import requests
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger("hookmaster")
 
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "10"))
 ALLOWED_ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "*").split(",") if o.strip()]
 
@@ -253,7 +253,7 @@ async def generate(payload: GenerateRequest, request: Request):
 
     try:
         completion = await client.chat.completions.create(
-            model=OPENAI_MODEL,
+            model="gpt-4o",
             messages=messages,
             response_format={"type": "json_object"},
             temperature=0.92,
