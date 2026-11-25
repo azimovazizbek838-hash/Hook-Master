@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HookMaster AI – Telegram Mini App</title>
+  <meta name="description" content="AI-generated TikTok & Reels hooks and 15-second UGC scripts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink: { 950: '#0b0b10', 900: '#101017', 800: '#16161f', 700: '#1e1e2a', 600: '#2a2a3a' },
+            neon: { purple: '#a855f7', violet: '#8b5cf6', cyan: '#22d3ee', pink: '#f472b6' }
+          },
+          boxShadow: {
+            glow: '0 0 40px -8px rgba(168,85,247,.55)',
+            glowCyan: '0 0 40px -8px rgba(34,211,238,.45)'
+          },
+          keyframes: {
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            shimmer: { '100%': { transform: 'translateX(100%)' } },
+            pop: { '0%': { opacity: 0, transform: 'scale(.95) translateY(10px)' }, '100%': { opacity: 1, transform: 'scale(1) translateY(0)' } },
+            fadeUp: { '0%': { opacity: 0, transform: 'translateY(14px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } }
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            pop: 'pop .25s ease-out both',
+            fadeUp: 'fadeUp .5s ease-out both'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { background: #0b0b10; }
+    .grad-text { background: linear-gradient(90deg, #a855f7, #22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .grad-btn { background: linear-gradient(90deg, #8b5cf6, #a855f7 45%, #22d3ee); }
+    .grad-btn:hover { filter: brightness(1.1); }
+    .skeleton { position: relative; overflow: hidden; background: #1e1e2a; }
+    .skeleton::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent); animation: shimmer 1.4s infinite; }
+    .grid-bg { background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(ellipse at top, #000 25%, transparent 70%); mask-image: radial-gradient(ellipse at top, #000 25%, transparent 70%); }
+    select { background-image: none; }
+    .tab-active { background: linear-gradient(90deg, rgba(139,92,246,.25), rgba(34,211,238,.18)); color: #fff; border-color: rgba(168,85,247,.55); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; }
+  </style>
+</head>
+<body class="font-sans text-slate-200 antialiased min-h-screen flex flex-col selection:bg-neon-purple/40">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-ink-950/70 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 font-extrabold text-lg text-white">
+        <span class="w-8 h-8 rounded-lg grad-btn grid place-items-center shadow-glow"><i data-lucide="zap" class="w-4 h-4 text-white"></i></span>
+        HookMaster <span class="grad-text">AI</span>
+      </a>
+      <button data-open-pricing class="text-sm font-semibold px-4 py-2 rounded-xl border border-neon-purple/40 text-white hover:bg-neon-purple/15 transition flex items-center gap-1.5">
+        <i data-lucide="crown" class="w-4 h-4 text-neon-cyan"></i> Go Pro (Stars)
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="flex-1">
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+      <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[34rem] h-[34rem] rounded-full bg-neon-purple/25 blur-[120px] pointer-events-none"></div>
+
+      <div class="relative max-w-3xl mx-auto px-4 pt-10 pb-8 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-4">
+          <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span></span>
+          Telegram Mini App · 5x AI Fallback
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-[1.1]">
+          Generate <span class="grad-text">Viral Hooks</span> in 5 Seconds
+        </h1>
+
+        <!-- GENERATOR FORM -->
+        <form id="generator" class="mt-6 text-left rounded-3xl bg-ink-800/80 border border-white/10 p-4 sm:p-6 shadow-glow backdrop-blur">
+          <label for="topic" class="block text-sm font-semibold text-slate-300 mb-2">Topic / Niche</label>
+          <div class="relative">
+            <i data-lucide="sparkles" class="w-5 h-5 text-neon-purple absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            <input id="topic" type="text" maxlength="100" placeholder="e.g. Coffee shop promo, Fitness motivation"
+              class="w-full h-14 pl-12 pr-4 rounded-2xl bg-ink-900 border border-white/10 text-white placeholder-slate-500 text-base focus:outline-none focus:border-neon-purple transition" />
+          </div>
+          <p id="topicError" class="hidden mt-2 text-sm text-rose-400">Please enter a topic.</p>
+
+          <label for="tone" class="block text-sm font-semibold text-slate-300 mt-4 mb-2">Tone</label>
+          <div class="relative">
+            <select id="tone" class="appearance-none w-full h-14 pl-4 pr-12 rounded-2xl bg-ink-900 border border-white/10 text-white text-base focus:outline-none focus:border-neon-cyan transition cursor-pointer">
+              <option value="viral">🔥 Viral</option>
+              <option value="funny">😂 Funny</option>
+              <option value="educational">🎓 Educational</option>
+              <option value="controversial">⚡ Controversial</option>
+              <option value="energy">🚀 High-Energy</option>
+            </select>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          </div>
+
+          <button id="generateBtn" type="submit"
+            class="grad-btn mt-6 w-full h-14 rounded-2xl font-extrabold text-base text-white shadow-glow transition active:scale-[.98] flex items-center justify-center gap-2">
+            <span id="btnLabel">Generate Viral Script ⚡</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="hidden px-4 pb-16">
+      <div class="max-w-3xl mx-auto">
+        <div id="loadingCard" class="hidden rounded-3xl bg-ink-800/80 border border-white/10 p-6 text-center">
+          <p class="font-bold text-white text-lg animate-pulse" id="loadingTitle">AI is crafting your hooks...</p>
+        </div>
+
+        <div id="resultCard" class="hidden rounded-3xl bg-ink-800/80 border border-white/10 shadow-glowCyan overflow-hidden">
+          <div class="px-5 pt-6 pb-4 border-b border-white/5 flex items-center justify-between">
+            <h2 id="resultTitle" class="text-xl font-extrabold text-white"></h2>
+            <span id="modelBadge" class="text-xs px-2.5 py-1 rounded-full bg-neon-purple/20 text-neon-purple"></span>
+          </div>
+
+          <div class="p-5 space-y-4">
+            <!-- Hooks -->
+            <div>
+              <h3 class="text-xs uppercase tracking-widest text-neon-cyan font-semibold mb-2">Hooks</h3>
+              <div id="hooksList" class="space-y-2"></div>
+            </div>
+
+            <!-- Script -->
+            <div>
+              <h3 class="text-xs uppercase tracking-widest text-neon-cyan font-semibold mb-2">Script Breakdown</h3>
+              <div id="scriptList" class="space-y-2"></div>
+            </div>
+
+            <!-- CTA -->
+            <div class="rounded-2xl p-4 bg-ink-900 border border-white/5">
+              <h3 class="text-xs uppercase tracking-widest text-neon-cyan font-semibold mb-1">CTA</h3>
+              <p id="ctaText" class="text-white font-bold"></p>
+              <p id="captionText" class="text-xs text-slate-400 mt-2"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PRICING MODAL (Telegram Stars) -->
+  <div id="pricingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="closeModalBg"></div>
+    <div class="relative w-full max-w-md rounded-3xl bg-ink-800 border border-neon-purple/30 p-6 text-center z-10">
+      <h2 class="text-2xl font-black text-white">Unlock Pro via Telegram Stars</h2>
+      <p class="text-sm text-slate-400 mt-2">Get unlimited generations instantly for 250 Stars (~$5).</p>
+      <button id="payStarsBtn" class="grad-btn mt-6 w-full h-14 rounded-2xl font-extrabold text-white shadow-glow">Pay 250 Stars ⭐</button>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) { tg.expand(); }
+
+    const BACKEND_URL = ''; // Agar backend boshqa domenda bo'lsa to'liq URL yoziladi (masalan: https://hookmaster.onrender.com)
+
+    const els = {
+      form: document.getElementById('generator'),
+      topic: document.getElementById('topic'),
+      tone: document.getElementById('tone'),
+      generateBtn: document.getElementById('generateBtn'),
+      btnLabel: document.getElementById('btnLabel'),
+      results: document.getElementById('results'),
+      loadingCard: document.getElementById('loadingCard'),
+      resultCard: document.getElementById('resultCard'),
+      resultTitle: document.getElementById('resultTitle'),
+      modelBadge: document.getElementById('modelBadge'),
+      hooksList: document.getElementById('hooksList'),
+      scriptList: document.getElementById('scriptList'),
+      ctaText: document.getElementById('ctaText'),
+      captionText: document.getElementById('captionText'),
+      pricingModal: document.getElementById('pricingModal'),
+      payStarsBtn: document.getElementById('payStarsBtn')
+    };
+
+    els.form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const topic = els.topic.value.trim();
+      const tone = els.tone.value;
+      if (!topic) return;
+
+      els.generateBtn.disabled = true;
+      els.btnLabel.textContent = 'Generating...';
+      els.results.classList.remove('hidden');
+      els.loadingCard.classList.remove('hidden');
+      els.resultCard.classList.add('hidden');
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic, tone })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          if (res.status === 403) {
+            els.pricingModal.classList.remove('hidden');
+            return;
+          }
+          throw new Error(err.detail || 'Generation failed');
+        }
+
+        const data = await res.json();
+        renderResult(data);
+      } catch (err) {
+        alert('Xatolik: ' + err.message);
+      } finally {
+        els.generateBtn.disabled = false;
+        els.btnLabel.textContent = 'Generate Viral Script ⚡';
+        els.loadingCard.classList.add('hidden');
+      }
+    });
+
+    function renderResult(data) {
+      els.resultTitle.textContent = data.topic;
+      els.modelBadge.textContent = data.model;
+
+      els.hooksList.innerHTML = data.hooks.map((h, i) => `
+        <div class="p-3 rounded-xl bg-ink-900 border border-white/5 text-sm text-white font-medium">
+          <span class="text-neon-cyan font-bold">#${i+1}</span> ${h}
+        </div>
+      `).join('');
+
+      els.scriptList.innerHTML = data.script.map(s => `
+        <div class="p-3 rounded-xl bg-ink-900 border border-white/5 text-xs">
+          <span class="text-neon-pink font-bold">${s.time}</span><br/>
+          <span class="text-slate-300"><b>Visual:</b> ${s.visual}</span><br/>
+          <span class="text-white"><b>Audio:</b> ${s.audio}</span>
+        </div>
+      `).join('');
+
+      els.ctaText.textContent = data.cta;
+      els.captionText.textContent = data.caption + ' ' + data.hashtags.join(' ');
+
+      els.resultCard.classList.remove('hidden');
+      els.results.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('[data-open-pricing]').forEach(el => el.addEventListener('click', () => els.pricingModal.classList.remove('hidden')));
+    document.getElementById('closeModalBg').addEventListener('click', () => els.pricingModal.classList.add('hidden'));
+
+    els.payStarsBtn.addEventListener('click', () => {
+      // Telegram Stars invoice ochish uchun botdan kelgan link ishlatiladi
+      alert('Telegram Stars to\'lovi bot orqali invoice yuborishga ulangan bo\'lishi kerak!');
+    });
+  </script>
+</body>
+</html>
